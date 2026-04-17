@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detector — Decode the Gravity of Words</title>
+    <meta name="description" content="Advanced AI-powered emotion detection from text using NLP and deep learning. Reveal the emotional signature behind any text — joy, anger, sadness, fear, surprise and more.">
+    <meta name="keywords" content="emotion detection, NLP, sentiment analysis, AI, machine learning, text analysis">
+    
+    <link rel="icon" type="image/png" href="/static/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- ── Animated Background Orbs ──────────────────────────────────── -->
+    <div class="bg-animation" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- ── Floating Particles Canvas ─────────────────────────────────── -->
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+    <div class="container">
+
+        <!-- ── Header ────────────────────────────────────────────────── -->
+        <header class="header" id="header">
+            <div class="logo-container">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring pulse-ring-2"></div>
+                <span class="logo-icon">🧠</span>
+            </div>
+            <h1 class="title">
+                <span class="title-line">Emotion</span>
+                <span class="title-line gradient-text">Detector</span>
+            </h1>
+            <p class="subtitle">
+                Decode the invisible gravity of human emotions through AI
+            </p>
+            <div class="tech-badges">
+                <span class="badge">🤖 Transformers</span>
+                <span class="badge">📊 NLP</span>
+                <span class="badge">🧬 Deep Learning</span>
+            </div>
+        </header>
+
+        <!-- ── Input Section ─────────────────────────────────────────── -->
+        <section class="input-section" id="input-section">
+            <div class="glass-card input-card">
+                <label for="text-input" class="input-label">
+                    <span class="label-icon">✍️</span>
+                    <span>Enter your text to reveal its emotional signature</span>
+                </label>
+                <div class="textarea-wrapper">
+                    <textarea
+                        id="text-input"
+                        placeholder="Type or paste any text here — a message, a poem, a thought, a review..."
+                        rows="5"
+                        maxlength="5000"
+                    ></textarea>
+                    <div class="textarea-glow"></div>
+                </div>
+                <div class="input-footer">
+                    <span class="char-count" id="char-count">0 / 5,000</span>
+                    <div class="input-actions">
+                        <button id="clear-btn" class="clear-btn" title="Clear text">
+                            ✕ Clear
+                        </button>
+                        <button id="analyze-btn" class="analyze-btn">
+                            <span class="btn-text">Analyze Emotions</span>
+                            <span class="btn-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </span>
+                            <div class="btn-loader" id="btn-loader">
+                                <div class="spinner"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Examples -->
+                <div class="examples">
+                    <span class="examples-label">Try an example:</span>
+                    <div class="example-chips">
+                        <button class="chip" data-text="I just got promoted at work! This is the best day of my life, I'm so happy and grateful!">😊 Joy</button>
+                        <button class="chip" data-text="I can't believe they lied to me again. I'm so frustrated and angry right now.">😠 Anger</button>
+                        <button class="chip" data-text="I miss the old days so much. Everything has changed and I feel so alone and lost.">😢 Sadness</button>
+                        <button class="chip" data-text="The noise in the dark hallway made my heart race. I don't want to go in there alone.">😨 Fear</button>
+                        <button class="chip" data-text="Wait, you're telling me I won the lottery?! I never expected this in a million years!">😮 Surprise</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Results Section ───────────────────────────────────────── -->
+        <section class="results-section" id="results-section">
+            <div class="glass-card results-card">
+                
+                <!-- Dominant Emotion Display -->
+                <div class="dominant-emotion" id="dominant-emotion">
+                    <div class="dominant-emoji-container">
+                        <div class="emoji-bg-glow" id="emoji-bg-glow"></div>
+                        <span class="dominant-emoji" id="dominant-emoji"></span>
+                    </div>
+                    <div class="dominant-info">
+                        <span class="dominant-label">Dominant Emotion</span>
+                        <span class="dominant-name" id="dominant-name"></span>
+                    </div>
+                    <div class="dominant-score-container">
+                        <svg class="score-ring" viewBox="0 0 100 100" id="score-ring">
+                            <circle class="score-ring-bg" cx="50" cy="50" r="42"/>
+                            <circle class="score-ring-fill" cx="50" cy="50" r="42" id="score-ring-fill"/>
+                        </svg>
+                        <span class="dominant-score" id="dominant-score"></span>
+                    </div>
+                </div>
+
+                <!-- Emotion Breakdown Bars -->
+                <div class="emotion-breakdown">
+                    <h3 class="breakdown-title">Emotion Breakdown</h3>
+                    <div class="emotion-bars" id="emotion-bars"></div>
+                </div>
+
+                <!-- Analyzed Text -->
+                <div class="analyzed-text-section">
+                    <span class="analyzed-label">📝 Analyzed Text</span>
+                    <p class="analyzed-text-content" id="analyzed-text-content"></p>
+                </div>
+
+                <!-- Analyze Another Button -->
+                <button id="new-analysis-btn" class="new-analysis-btn">
+                    ↻ Analyze Another Text
+                </button>
+            </div>
+        </section>
+
+        <!-- ── History Section ───────────────────────────────────────── -->
+        <section class="history-section" id="history-section">
+            <div class="history-header">
+                <h2 class="section-title">📋 Analysis History</h2>
+                <button id="clear-history-btn" class="clear-history-btn">Clear All</button>
+            </div>
+            <div class="history-grid" id="history-grid"></div>
+        </section>
+
+    </div>
+
+    <!-- ── Footer ────────────────────────────────────────────────────── -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>
+                Powered by <strong>DistilRoBERTa</strong> · <strong>HuggingFace Transformers</strong> · <strong>Flask</strong>
+            </p>
+            <p class="footer-sub">
+                Because the future of AI is not just intelligent — it is emotionally aware.
+            </p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
