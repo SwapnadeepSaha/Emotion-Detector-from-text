@@ -1,2 +1,6 @@
+to run the application, give the below commands to commandprompt!
+
+
 .venv\Scripts\activate
 
+python main.py
